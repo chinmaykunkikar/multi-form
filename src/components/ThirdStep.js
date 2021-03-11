@@ -69,6 +69,28 @@ const ThirdStep = (props) => {
     getStates()
   }, [selectedCountry]) // this effect will only run when the selectedCountry state changes
 
+  useEffect(() => {
+    const getCities = async () => {
+      try {
+        const result = await csc.getCitiesOfState(
+          selectedCountry,
+          selectedState
+        )
+        let allCities = []
+        allCities = result?.map(({ name }) => ({
+          name,
+        }))
+        const [{ name: firstCity = '' } = {}] = allCities
+        setCities(allCities)
+        setSelectedCity(firstCity)
+      } catch (error) {
+        setCities([])
+      }
+    }
+
+    getCities()
+  }, [selectedCountry, selectedState])
+
   const handleSubmit = async (event) => {
     event.preventDefault()
   }
@@ -111,6 +133,27 @@ const ThirdStep = (props) => {
             )}
           </Form.Control>
         </Form.Group>
+        <Form.Group controlId='city'>
+          <Form.Label>City</Form.Label>
+          <Form.Control
+            as='select'
+            name='city'
+            value={selectedCity}
+            onChange={(event) => setSelectedCity(event.target.value)}>
+            {cities.length > 0 ? (
+              cities.map(({ name }) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              ))
+            ) : (
+              <option value=''>No city found</option>
+            )}
+          </Form.Control>
+        </Form.Group>
+        <Button variant="primary" type="submit">
+            Sign Up
+        </Button>
       </div>
     </Form>
   )
