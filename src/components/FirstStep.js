@@ -5,7 +5,10 @@ import { Form, Button } from 'react-bootstrap'
 const FirstStep = (props) => {
   const { register, handleSubmit, errors } = useForm()
 
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = (data) => {
+    console.log(data)
+    props.history.push('/email')
+  }
 
   return (
     <Form className='input-form' onSubmit={handleSubmit(onSubmit)}>
@@ -18,13 +21,10 @@ const FirstStep = (props) => {
             placeholder='Enter your name'
             autoComplete='off'
             ref={register({
-              required: 'First name is required.',
+              required: 'First name is required.'
             })}
             className={`${errors.first_name ? 'input-error' : ''}`}
           />
-          {errors.first_name && (
-            <p className='errorMsg'>{errors.first_name.message}</p>
-          )}
         </Form.Group>
         <Form.Group controlId='last_name'>
           <Form.Label>Last name</Form.Label>
@@ -34,13 +34,10 @@ const FirstStep = (props) => {
             placeholder='Enter your last name'
             autoComplete='off'
             ref={register({
-              required: 'Last name is required.',
+              required: 'Last name is required.'
             })}
             className={`${errors.last_name ? 'input-error' : ''}`}
           />
-          {errors.last_name && (
-            <p className='errorMsg'>{errors.last_name.message}</p>
-          )}
         </Form.Group>
 
         <Button variant='primary' type='submit'>
