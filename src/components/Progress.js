@@ -13,7 +13,7 @@ const Progress = () => (
             </div>
             <div className="step">
                 <div>3</div>
-                <div>Step 4</div>
+                <div>Step 3</div>
             </div>
         </div>
     </React.Fragment>

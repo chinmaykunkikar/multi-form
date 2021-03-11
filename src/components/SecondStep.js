@@ -5,7 +5,10 @@ import { Form, Button } from 'react-bootstrap'
 const SecondStep = (props) => {
   const { register, handleSubmit, errors } = useForm()
 
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = (data) => {
+    console.log(data);
+    props.history.push('/location');
+  };
 
   return (
     <Form className='input-form' onSubmit={handleSubmit(onSubmit)}>
