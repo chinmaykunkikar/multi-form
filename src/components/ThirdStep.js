@@ -15,9 +15,21 @@ const ThirdStep = (props) => {
   useEffect(() => {
     const getCountries = async () => {
       try {
+        setIsLoading(true)
         const result = await csc.getAllCountries()
-        console.log(result)
-      } catch (error) {}
+        let allCountries = []
+        allCountries = result?.map(({ isoCode, name }) => ({
+          isoCode,
+          name,
+        }))
+        const [{ isoCode: firstCountry } = {}] = allCountries
+        setCountries(allCountries)
+        setSelectedCountry(firstCountry)
+        setIsLoading(false)
+      } catch (error) {
+        setCountries([])
+        setIsLoading(false)
+      }
     }
 
     getCountries()
@@ -29,7 +41,23 @@ const ThirdStep = (props) => {
 
   return (
     <Form className='input-form' onSubmit={handleSubmit}>
-      <div className='col-md-6 offset-md-3'></div>
+      <div className='col-md-6 offset-md-3'>
+        <Form.Group controlId='country'>
+          {isLoading && <p className='loading'>Loading counties...</p>}
+          <Form.Label>Country</Form.Label>
+          <Form.Control
+            as='select'
+            name='country'
+            value={selectedCountry}
+            onChange={(event) => setSelectedCountry(event.target.value)}>
+            {countries.map(({ isoCode, name }) => (
+              <option key={isoCode} value={isoCode}>
+                {name}
+              </option>
+            ))}
+          </Form.Control>
+        </Form.Group>
+      </div>
     </Form>
   )
 }
