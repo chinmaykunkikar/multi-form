@@ -1,5 +1,5 @@
-$base-color: #b027ff;
-$blue-color: #ff155b;
+$primary-color: #b027ff;
+$secondary-color: #ff155b;
 
 * {
   margin: 0;
@@ -9,7 +9,7 @@ $blue-color: #ff155b;
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: $base-color;
+  color: $primary-color;
 }
 
 .form-control:focus {
@@ -42,7 +42,7 @@ h1 {
     color: #ccc;
 
     a {
-      color: $base-color;
+      color: $primary-color;
     }
 
     div:first-of-type {
@@ -63,13 +63,13 @@ h1 {
 
     &.active {
       div:first-of-type {
-        background-color: $base-color;
+        background-color: $primary-color;
         border: 1px solid transparent;
         color: #fff;
       }
 
       div:last-of-type {
-        color: $base-color;
+        color: $primary-color;
       }
     }
   }
@@ -94,7 +94,7 @@ h1 {
 }
 
 .successMsg {
-  color: $blue-color;
+  color: $secondary-color;
 }
 
 .loading {
@@ -106,7 +106,7 @@ h1 {
 }
 
 .user-details {
-  color: $blue-color;
+  color: $secondary-color;
   padding: 5px 0;
   margin-bottom: 1rem;
 }
