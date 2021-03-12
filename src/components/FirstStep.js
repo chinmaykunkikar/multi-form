@@ -3,10 +3,17 @@ import { useForm } from 'react-hook-form'
 import { Form, Button } from 'react-bootstrap'
 
 const FirstStep = (props) => {
-  const { register, handleSubmit, errors } = useForm()
+  const { user } = props
+  const { register, handleSubmit, errors } = useForm({
+    defaultValues: {
+      first_name: user.first_name,
+      last_name: user.last_name,
+    },
+  })
 
   const onSubmit = (data) => {
     console.log(data)
+    props.updateUser(data)
     props.history.push('/email')
   }
 
@@ -21,7 +28,7 @@ const FirstStep = (props) => {
             placeholder='Enter your name'
             autoComplete='off'
             ref={register({
-              required: 'First name is required.'
+              required: 'First name is required.',
             })}
             className={`${errors.first_name ? 'input-error' : ''}`}
           />
@@ -34,7 +41,7 @@ const FirstStep = (props) => {
             placeholder='Enter your last name'
             autoComplete='off'
             ref={register({
-              required: 'Last name is required.'
+              required: 'Last name is required.',
             })}
             className={`${errors.last_name ? 'input-error' : ''}`}
           />
