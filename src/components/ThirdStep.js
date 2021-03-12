@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import csc from 'country-state-city'
 import { motion } from 'framer-motion'
+import axios from 'axios'
+
+import { BASE_API_URL } from '../utils/constants'
 
 const ThirdStep = (props) => {
   const [countries, setCountries] = useState([])
@@ -94,6 +97,25 @@ const ThirdStep = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+
+    try {
+      const { user } = props
+      const updatedData = {
+        country: countries.find(
+          (country) => country.isoCode === selectedCountry
+        )?.name,
+        state:
+          states.find((state) => state.isoCode === selectedState)?.name || '',
+        city: selectedCity,
+      }
+
+      await axios.post(`${BASE_API_URL}/register`, {
+        ...user,
+        ...updatedData,
+      })
+    } catch (error) {
+      console.log(`Error: ${error.response.data}`)
+    }
   }
 
   return (
@@ -156,8 +178,8 @@ const ThirdStep = (props) => {
             )}
           </Form.Control>
         </Form.Group>
-        <Button variant="primary" type="submit">
-            Sign Up
+        <Button variant='primary' type='submit'>
+          Sign Up
         </Button>
       </motion.div>
     </Form>
