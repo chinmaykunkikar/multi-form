@@ -1,6 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Form, Button } from 'react-bootstrap'
+import { motion } from 'framer-motion'
 
 const SecondStep = (props) => {
   const { user } = props
@@ -19,7 +20,11 @@ const SecondStep = (props) => {
 
   return (
     <Form className='input-form' onSubmit={handleSubmit(onSubmit)}>
-      <div className='col-md-6 offset-md-3'>
+      <motion.div
+        className='col-md-6 offset-md-3'
+        initial={{ x: '-100vw' }}
+        animate={{ x: 0 }}
+        transition={{ stiffness: 150 }}>
         <Form.Group controlId='email'>
           <Form.Label>Email</Form.Label>
           <Form.Control
@@ -63,7 +68,7 @@ const SecondStep = (props) => {
         <Button variant='primary' type='submit'>
           Next
         </Button>
-      </div>
+      </motion.div>
     </Form>
   )
 }
