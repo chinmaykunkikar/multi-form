@@ -21,22 +21,30 @@ const AppRouter = () => {
       <div className='container'>
         <Header />
         <Switch>
-          <Route 
+          <Route
             render={(props) => (
-                <FirstStep {...props} user={user} updateUser={updateUser} />
+              <FirstStep {...props} user={user} updateUser={updateUser} />
             )}
             path='/'
-            exact={true} />
+            exact={true}
+          />
           <Route
             render={(props) => (
-                <SecondStep {...props} user={user} updateUser={updateUser} />
+              <SecondStep {...props} user={user} updateUser={updateUser} />
             )}
-            path='/email' />
+            path='/email'
+          />
           <Route
             render={(props) => (
-                <ThirdStep {...props} user={user} />
+              <ThirdStep
+                {...props}
+                user={user}
+                updateUser={updateUser}
+                resetUser={resetUser}
+              />
             )}
-            path='/location' />
+            path='/location'
+          />
         </Switch>
       </div>
     </BrowserRouter>

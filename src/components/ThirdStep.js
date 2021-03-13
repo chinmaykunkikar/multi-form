@@ -3,6 +3,7 @@ import { Form, Button } from 'react-bootstrap'
 import csc from 'country-state-city'
 import { motion } from 'framer-motion'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 import { BASE_API_URL } from '../utils/constants'
 
@@ -113,8 +114,21 @@ const ThirdStep = (props) => {
         ...user,
         ...updatedData,
       })
+      Swal.fire('Awesome!', 'Successfully registered', 'success').then(
+        (result) => {
+          if (result.isConfirmed || result.isDismissed) {
+            props.resetUser()
+            props.history.push('/')
+          }
+        }
+      )
     } catch (error) {
       console.log(`Error: ${error.response.data}`)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops.',
+        text: error.response.data,
+      })
     }
   }
 
@@ -179,7 +193,7 @@ const ThirdStep = (props) => {
           </Form.Control>
         </Form.Group>
         <Button variant='primary' type='submit'>
-          Sign Up
+          Register
         </Button>
       </motion.div>
     </Form>
